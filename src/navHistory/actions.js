@@ -5,6 +5,20 @@ function navHistory_isfetching(isFetching) {
   return {type: NAVHISTORY_ISFETCHING, isFetching};
 };
 
+// Receiving navigation history data 
+const NAVHISTORY_RECEIVING = 'NAVHISTORY_RECEIVING';
+
+function navHistory_receive(navigations) {
+	return {type: NAVHISTORY_RECEIVING, navigations};
+}
+
+// Toggle error display
+const NAVHISTORY_HASERROR = "NAVHISTORY_HASERROR";
+
+function navHistory_hasError(hasError, msg) {
+	return {type: NAVHISTORY_HASERROR, error: { hasError: hasError, msg: msg}};
+}
+
 // Fetching data from remote url
 function navHistory_fetch(url) {
 	return (dispatch) => {
@@ -19,8 +33,18 @@ function navHistory_fetch(url) {
 		.then(response => response.json())
 
 		// test de la réponse
-		.then(response => response.answer_data)
-		// traitement de la réponse
+		.then(response => {
+			
+			// erreur
+			if( response.answer_code != 'listerRoutes_end_code_0') {
+				throw Error();
+			}
+
+			// retour ok
+			return response.answer_data;
+		})
+
+		// analyse de la réponse
 		.then(data => {
 
 			// conversion en array
@@ -38,19 +62,28 @@ function navHistory_fetch(url) {
 			return navigations;
 		})
 
-		// enregistrement des navigations dans le store
-		.then(navigations => dispatch(navHistory_receive(navigations)))
+		// retour ok
+		.then(navigations => {
+			
+			// enregistrement des navigations dans le store
+			dispatch(navHistory_receive(navigations));
 
-		// fin du loading
-		.then( () => dispatch(navHistory_isfetching(false)));
+			// reset de l'erreur 
+			dispatch( navHistory_hasError(false, ''));
+
+			// fin du chargement
+			dispatch(navHistory_isfetching(false));
+		})
 
 		// gestion des erreurs
+		.catch( () => {
+			
+			// Enregistrement de l'erreur dans le store
+			dispatch(navHistory_hasError(true, "Erreur lors du chargement des routes"));
+
+			// Fin du chargement
+			dispatch(navHistory_isfetching(false));
+		});
 	}
 }
 
-// Receiving navigation history data 
-const NAVHISTORY_RECEIVING = 'NAVHISTORY_RECEIVING';
-
-function navHistory_receive(navigations) {
-	return {type: NAVHISTORY_RECEIVING, navigations};
-}

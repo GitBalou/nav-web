@@ -16,6 +16,11 @@ class NavList extends React.Component {
         return <div><p>...loading</p></div>;
       }
 
+      // render error
+      if(this.props.error.hasError) {
+        return <div><p>Erreur {this.props.error.msg} </p></div>;
+      }
+
       // Render navigation list
       return (
         <ul>
@@ -42,6 +47,7 @@ NavList.propTypes = {
 const mapStateToProps = (state) => {
     return {
         isFetching: state.navHistory.isFetching,
+        error: state.navHistory.error,
         navigations: state.navHistory.navigations
     };
 };

@@ -1,7 +1,10 @@
 // initial state
 const initialState= {
     isFetching: false, // to know if we are waiting for data
-    didInvalidate: false, // needs to refresh ?
+    error: {
+    	hasError: false, // to know if we have an error
+    	msg: '' // error message
+    },
     navigations: [] // navigations list
 };
 
@@ -20,6 +23,12 @@ function navHistory(state= initialState, action){
 			return {
 				...state,
 				navigations: action.navigations
+			};
+
+		case NAVHISTORY_HASERROR:
+			return {
+				...state,
+				error: action.error
 			};
 
 		default:
