@@ -3,9 +3,9 @@ const NAVHISTORY_ISFETCHING = 'NAVHISTORY_ISFETCHING';
 
 function navHistory_isfetching(isFetching) {
   return {type: NAVHISTORY_ISFETCHING, isFetching};
-};
+}
 
-// Receiving navigation history data 
+// Receiving navigation history data
 const NAVHISTORY_RECEIVING = 'NAVHISTORY_RECEIVING';
 
 function navHistory_receive(navigations) {
@@ -87,3 +87,12 @@ function navHistory_fetch(url) {
 	}
 }
 
+export {
+    NAVHISTORY_ISFETCHING,
+    navHistory_isfetching,
+    NAVHISTORY_RECEIVING,
+    navHistory_receive,
+    NAVHISTORY_HASERROR,
+    navHistory_hasError,
+    navHistory_fetch
+};

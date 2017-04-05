@@ -1,5 +1,7 @@
-const {PropTypes} = React;
-const {connect} = ReactRedux;
+import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
+import NavElement from './NavElement';
+import {navHistory_fetch} from '../actions';
 
 // component : render navigation history list
 class NavList extends React.Component {
@@ -61,3 +63,5 @@ const mapDispatchToProps = (dispatch) => {
 
 // connection du composant à redux
 NavList = connect(mapStateToProps, mapDispatchToProps)(NavList);
+
+export default NavList;

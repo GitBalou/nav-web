@@ -1,25 +1,18 @@
-const {Provider} = ReactRedux;
-//const {Router, Route} = ReactRouter;
-//import { Router, Route, Link } from 'react-router';
-var ReactRouter = require('react-router')
-var Router = ReactRouter.Router
-var Route = ReactRouter.Route
-var Link = ReactRouter.Link
-
-store.subscribe(()=> console.log(store.getState()));
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
+import store from './store.js';
+import NavList from './navHistory/components/NavList';
 
 //Component App
 const App = () => (
 	<Provider store={store}>
-		<Router>
-    		<Route path="/" component={NavList} />
-    	</Router>
+        <NavList />
   	</Provider>
 );
 
 // Rendering
 ReactDOM.render(
-    <App/>,
+    <App />,
     document.getElementById('root')
 );
-

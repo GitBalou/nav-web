@@ -1,3 +1,9 @@
+import  {
+    NAVHISTORY_ISFETCHING,
+    NAVHISTORY_RECEIVING,
+    NAVHISTORY_HASERROR
+} from './actions';
+
 // initial state
 const initialState= {
     isFetching: false, // to know if we are waiting for data
@@ -35,3 +41,5 @@ function navHistory(state= initialState, action){
 			return state;
 	}
 }
+
+export default navHistory;
