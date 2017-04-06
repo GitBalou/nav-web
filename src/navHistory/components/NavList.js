@@ -1,6 +1,5 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import NavElement from './NavElement';
 import {navHistory_fetch} from '../actions';
 
 // component : render navigation history list
@@ -27,10 +26,7 @@ class NavList extends React.Component {
       return (
         <ul>
           {this.props.navigations.map(nav =>
-              <NavElement
-                  key={nav.id_route}
-                  {...nav}
-              />
+              <li>{nav.nom_route}</li>
           )}
         </ul>
       );

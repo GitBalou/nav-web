@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 
-// Component : navigation history <li>
+// Component : List element <li>
 const NavElement = ({nom_route}) => (
   <li>
       {nom_route}
