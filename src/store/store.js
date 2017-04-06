@@ -1,6 +1,6 @@
 import {combineReducers, createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk'
-import navHistory from './navHistory/reducers';
+import navHistory from '../reducers/reducers';
 
 // main reducer
 const mainReducer = combineReducers({

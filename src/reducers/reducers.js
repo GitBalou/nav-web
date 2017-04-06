@@ -2,7 +2,7 @@ import  {
     NAVHISTORY_ISFETCHING,
     NAVHISTORY_RECEIVING,
     NAVHISTORY_HASERROR
-} from './actions';
+} from '../actions/actions';
 
 // initial state
 const initialState= {

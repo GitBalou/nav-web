@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {navHistory_fetch} from '../actions';
+import {navHistory_fetch} from '../actions/actions';
 
 // component : render navigation history list
 class NavList extends React.Component {

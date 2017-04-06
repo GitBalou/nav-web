@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {BrowserRouter  as Router, Route, Link} from 'react-router-dom';
-import store from './store.js';
-import NavList from './navHistory/components/NavList';
+import store from './store/store.js';
+import NavList from './components/NavList';
 
 //Component App
 const App = () => (
