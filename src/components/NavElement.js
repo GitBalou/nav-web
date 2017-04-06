@@ -1,6 +1,6 @@
-const {PropTypes} = React;
+import React, {PropTypes} from 'react';
 
-// Component : navigation history <li>
+// Component : List element <li>
 const NavElement = ({nom_route}) => (
   <li>
       {nom_route}
@@ -11,3 +11,5 @@ const NavElement = ({nom_route}) => (
 NavElement.propTypes = {
     nom_route: PropTypes.string.isRequired
 };
+
+export default NavElement;

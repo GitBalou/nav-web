@@ -2,17 +2,31 @@
   "name": "nav-react",
   "version": "0.1.0",
   "description": "Seame on React",
-  "main": " ",
-  "scripts": {
-    "test": " "
-  },
   "repository": {
     "type": "git",
-    "url": " "
+    "url": "https://www.github.com/nav-web"
+  },
+  "scripts": {
+    "start": "webpack-dev-server"
   },
   "author": "gabriel",
   "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-2": "^6.22.0",
     "browser-sync": "^2.18.8",
-    "gulp": "^3.9.1"
+    "react-router-dom": "^4.0.0",
+    "redux-saga": "^0.14.5",
+    "webpack": "^2.3.3"
+  },
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.3",
+    "react-router": "^4.0.0",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0"
   }
 }
