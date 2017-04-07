@@ -1,98 +1,26 @@
-// Toggle navhistory loading
-const NAVHISTORY_ISFETCHING = 'NAVHISTORY_ISFETCHING';
+// Toggle loading
+export const LOADING = 'LOADING';
 
-function navHistory_isfetching(isFetching) {
-  return {type: NAVHISTORY_ISFETCHING, isFetching};
-}
-
-// Receiving navigation history data
-const NAVHISTORY_RECEIVING = 'NAVHISTORY_RECEIVING';
-
-function navHistory_receive(navigations) {
-	return {type: NAVHISTORY_RECEIVING, navigations};
+export function loading(loading) {
+  return {type: LOADING, loading};
 }
 
 // Toggle error display
-const NAVHISTORY_HASERROR = "NAVHISTORY_HASERROR";
+export const ERROR = "ERROR";
 
-function navHistory_hasError(hasError, msg) {
-	return {type: NAVHISTORY_HASERROR, error: { hasError: hasError, msg: msg}};
+export function error(hasError, msg) {
+    return {type: ERROR, error: { hasError: hasError, msg: msg}};
+}
+
+// Receiving navigation history data
+export const NAVHISTORY_RECEIVING = 'NAVHISTORY_RECEIVING';
+
+export function navHistory_receive(navigations) {
+	return {type: NAVHISTORY_RECEIVING, navigations};
 }
 
 // Fetching data from remote url
-function navHistory_fetch(url) {
-	return (dispatch) => {
-
-		// loading
-		dispatch(navHistory_isfetching(true));
-
-		// fetching
-		fetch(url)
-
-		// conversion de la réponse en json
-		.then(response => response.json())
-
-		// test de la réponse
-		.then(response => {
-			
-			// erreur
-			if( response.answer_code != 'listerRoutes_end_code_0') {
-				throw Error();
-			}
-
-			// retour ok
-			return response.answer_data;
-		})
-
-		// analyse de la réponse
-		.then(data => {
-
-			// conversion en array
-			let navigations = [];
-			
-			for( let i in data) {
-			
-				navigations.push({
-					id_route: parseInt(data[i].id_route),
-					nom_route: data[i].nom_route
-				});
-			}
-
-			// retour de l'array
-			return navigations;
-		})
-
-		// retour ok
-		.then(navigations => {
-			
-			// enregistrement des navigations dans le store
-			dispatch(navHistory_receive(navigations));
-
-			// reset de l'erreur 
-			dispatch( navHistory_hasError(false, ''));
-
-			// fin du chargement
-			dispatch(navHistory_isfetching(false));
-		})
-
-		// gestion des erreurs
-		.catch( () => {
-			
-			// Enregistrement de l'erreur dans le store
-			dispatch(navHistory_hasError(true, "Erreur lors du chargement des routes"));
-
-			// Fin du chargement
-			dispatch(navHistory_isfetching(false));
-		});
-	}
+export const NAVHISTORY_FETCH = "NAVHISTORY_FETCH";
+export function navHistory_fetch(url) {
+	return {type:NAVHISTORY_FETCH, url};
 }
-
-export {
-    NAVHISTORY_ISFETCHING,
-    navHistory_isfetching,
-    NAVHISTORY_RECEIVING,
-    navHistory_receive,
-    NAVHISTORY_HASERROR,
-    navHistory_hasError,
-    navHistory_fetch
-};

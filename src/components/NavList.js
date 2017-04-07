@@ -11,22 +11,11 @@ class NavList extends React.Component {
     }
 
     render() {
-
-      // Render loading
-      if( this.props.isFetching) {
-        return <div><p>...loading</p></div>;
-      }
-
-      // render error
-      if(this.props.error.hasError) {
-        return <div><p>Erreur {this.props.error.msg} </p></div>;
-      }
-
       // Render navigation list
       return (
         <ul>
           {this.props.navigations.map(nav =>
-              <li>{nav.nom_route}</li>
+              <li key={nav.id_route}>{nav.nom_route}</li>
           )}
         </ul>
       );
@@ -44,8 +33,6 @@ NavList.propTypes = {
 // this component needs navHistory from store
 const mapStateToProps = (state) => {
     return {
-        isFetching: state.navHistory.isFetching,
-        error: state.navHistory.error,
         navigations: state.navHistory.navigations
     };
 };

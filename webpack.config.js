@@ -6,8 +6,9 @@ module.exports = {
     context: path.resolve(__dirname, './src'),
 
     // entry point for the processing tree
+    // babel-polyfill added here for generator transpilyng
     entry: {
-        index: ["./index.js"]
+        index: ["babel-polyfill", "./index.js"]
     },
 
     // output move to this folder
@@ -20,6 +21,7 @@ module.exports = {
     // additional module
     module: {
         rules: [
+            // babel transpiler for es6 / react script
             {
                 test: /.jsx?$/,
                 exclude: /node_modules/,
@@ -30,9 +32,9 @@ module.exports = {
                         options: {
                             babelrc: false,
                             presets: [
-                                ['es2015', { modules: false }],
-                                'react',
-                                'stage-2'
+                                ['es2015', { modules: false }], // es2015 syntax
+                                'react', // jsx syntax
+                                'stage-2' // spread operator
                             ],
                         }
                     }

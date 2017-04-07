@@ -1,14 +1,17 @@
-import {combineReducers, createStore, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk'
-import navHistory from '../reducers/reducers';
+import {createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware  from 'redux-saga'
+import mainReducer from '../reducers/reducers';
+import navHistorySaga from '../sagas/navHistory.js';
 
-// main reducer
-const mainReducer = combineReducers({
-	navHistory // gestion de l'historique des navigations
-});
 
-const store = createStore(mainReducer, applyMiddleware(
-    thunkMiddleware
-));
+// Saga middleware
+const sagaMiddleware = createSagaMiddleware();
+const createStoreWithMiddleware = applyMiddleware(sagaMiddleware)(createStore);
+
+// creating store
+const store = createStoreWithMiddleware(mainReducer);
+
+// Starting sagas
+sagaMiddleware.run(navHistorySaga);
 
 export default store;
