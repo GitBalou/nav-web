@@ -2,9 +2,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {friendsList_receive} from '../redux/friendsList.duck';
-import fetchFriends from '../api/fetchFriends';
+import friendsApi from '../api/friends.api';
 import Loading from '../views/Loading.jsx';
-import FetchingList from '../views/FetchingList.jsx';
+import List from '../views/List.jsx';
 
 // Controller component
 class FriendsList extends React.Component {
@@ -26,11 +26,9 @@ class FriendsList extends React.Component {
         this.setState({loading:true});
 
         try {
-            // url
-            const url = 'http://seame.alwaysdata.net/ajax/cercle.php?mode=getCercle&user=2';
 
             // fetch navigations list (fetch library)
-            fetchFriends(url)
+            friendsApi.fetch(2)
 
             // save data
             .then( data => {
@@ -58,7 +56,7 @@ class FriendsList extends React.Component {
 
         // render list
         return(
-          <FetchingList datas={this.props.friends} />
+          <List datas={this.props.friends} />
         );
     }
 }

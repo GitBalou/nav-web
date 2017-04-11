@@ -1,14 +1,20 @@
-// API : fetch friends list
-export default function fetchFriends(url) {
+// API : friends
+export default {
 
-    // fetch from url
-    return fetch(url)
+    // fetching friends
+    fetch: idUser => {
 
-    // transform to json
-    .then(response => response.json())
+        // url
+        const url = 'http://seame.alwaysdata.net/ajax/cercle.php?mode=getCercle&user='+idUser;
 
-    // handle server response
-    .then(response => {
+        // fetch from url
+        return fetch(url)
+
+        // transform to json
+        .then(response => response.json())
+
+        // handle server response
+        .then(response => {
 
             // Server error
             if (response.answer_code != 'getCercle_end_code_0') {
@@ -28,4 +34,5 @@ export default function fetchFriends(url) {
 
             return friends;
         });
-}
+    }
+};

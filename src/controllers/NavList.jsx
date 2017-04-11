@@ -2,9 +2,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {navList_receive} from '../redux/navList.duck';
-import fetchNavs from '../api/fetchNavs';
+import navListApi from '../api/navList.api';
 import Loading from '../views/Loading.jsx';
-import FetchingList from '../views/FetchingList.jsx';
+import List from '../views/List.jsx';
 
 // Controller component
 class NavList extends React.Component {
@@ -26,11 +26,9 @@ class NavList extends React.Component {
         this.setState({loading:true});
 
         try {
-            // url
-            const url = 'http://seame.alwaysdata.net/ajax/userRoute.php?mode=listerRoutes&id=2';
 
             // fetch navigations list (fetch library)
-            fetchNavs(url)
+            navListApi.fetch(2)
 
             // handle server response
             .then(data => {
@@ -58,7 +56,7 @@ class NavList extends React.Component {
 
         // render list
         return(
-            <FetchingList datas={this.props.datas} />
+            <List datas={this.props.datas} />
         );
     }
 }
