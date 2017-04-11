@@ -1,7 +1,7 @@
 import {createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware  from 'redux-saga'
-import mainReducer from '../reducers/reducers';
-import navListSaga from '../sagas/navList.js';
+import mainReducer from '../reducers';
+import rootSaga from '../sagas';
 
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware();
@@ -12,7 +12,7 @@ const store = createStore(
     applyMiddleware(sagaMiddleware)
 );
 
-// then run the saga
-sagaMiddleware.run(navListSaga)
+// then run the root saga
+sagaMiddleware.run(rootSaga);
 
 export default store;

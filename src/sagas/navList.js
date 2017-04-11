@@ -1,21 +1,17 @@
 import { actionChannel, call, take, put, race } from 'redux-saga/effects';
-import * as actions from '../actions/actions';
+import * as actions from '../actions';
+import fetchData from '../api/fetchData';
 
 // Saga : fetch nav history
-export default function *navListSaga(){
-
-    // waiting for navhistory fetch
-    const {url} = yield take('NAVHISTORY_FETCH');
+export default function *navListSaga({url}){
 
     // display loading
     yield put(actions.loading(true));
 
     try {
-        // fetch navigations list (fetch library)
-        let response = yield call(fetch, url);
 
-        // convert response to json
-        response = yield response.json();
+        // fetch navigations list (fetch library)
+        let response = yield call(fetchData, url);
 
         // Server error
         if( response.answer_code != 'listerRoutes_end_code_0') {
@@ -34,14 +30,12 @@ export default function *navListSaga(){
         }
 
         // store navigations in state
-        yield put( actions.navHistory_receive(navigations));
+        yield put( actions.navList_receive(navigations));
 
         // hide loading
         yield put(actions.loading(false));
     }
     catch(e){
-        console.log(e.message);
-
         // hide loading
         yield put(actions.loading(false));
     }

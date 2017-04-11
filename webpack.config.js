@@ -45,7 +45,8 @@ module.exports = {
 
     // serveur de dev
     devServer: {
-        contentBase: path.resolve(__dirname, './src')
+        contentBase: path.resolve(__dirname, './src'), // index is served from src
+        historyApiFallback: true // fallback any 404 error to index.html
     },
 
     // source map
