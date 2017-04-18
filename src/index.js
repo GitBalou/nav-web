@@ -5,6 +5,7 @@ import {BrowserRouter  as Router, Route, Link} from 'react-router-dom';
 import store from './redux';
 import NavList from './controllers/NavList.jsx';
 import FriendsList from './controllers/FriendsList.jsx';
+import LoginCtrl from './controllers/LoginCtrl.jsx';
 
 //Component App
 const App = () => (
@@ -17,7 +18,7 @@ const App = () => (
                     <li><Link to="/cercle/2">Cercle de navigateurs</Link></li>
 
                 </ul>
-                <Route path="/" />
+                <Route path="/" component={LoginCtrl}/>
                 <Route path="/routes/:idUser" component={NavList} />
                 <Route path="/cercle/:idUser" component={FriendsList}/>
             </div>
