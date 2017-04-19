@@ -1,11 +1,14 @@
 // API : user tools
+
+import conf from '../conf';
+
 export default {
 
     // login method
     login: (email, password) => {
 
         // url
-        let url = 'http://seame.alwaysdata.net/ajax/user.php';
+        let url = conf.serverUrl+'user.php';
         url += '?mode=login';
         url += '&email='+email;
         url += '&mdp='+password;

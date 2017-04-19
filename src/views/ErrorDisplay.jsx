@@ -1,9 +1,9 @@
 import React, {PropTypes} from 'react';
 
 // Component : render an error displayer
-const ErrorDisplay = ({show, msg}) => {
+const ErrorDisplay = ({msg}) => {
 
-    if( show && msg.length > 0) {
+    if( msg.length > 0) {
         return (
             <p>
                 {msg}
@@ -16,7 +16,6 @@ const ErrorDisplay = ({show, msg}) => {
 
 // Required properties
 ErrorDisplay.propTypes = {
-    show: PropTypes.bool.isRequired,
     msg: PropTypes.string.isRequired
 };
 

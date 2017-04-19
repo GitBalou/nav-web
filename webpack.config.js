@@ -6,9 +6,8 @@ module.exports = {
     context: path.resolve(__dirname, './src'),
 
     // entry point for the processing tree
-    // babel-polyfill added here for generator transpilyng
     entry: {
-        index: ["babel-polyfill", "./index.js"]
+        index: ["./index.js"]
     },
 
     // output move to this folder

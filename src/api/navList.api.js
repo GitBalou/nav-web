@@ -1,11 +1,15 @@
 // API : navigations history
+import conf from '../conf';
+
 export default {
 
     // fetch navigation history
     fetch: idUser => {
 
         // url
-        const url = 'http://seame.alwaysdata.net/ajax/userRoute.php?mode=listerRoutes&id='+idUser;
+        let url = conf.serverUrl+'userRoute.php';
+        url += '?mode=listerRoutes';
+        url += '&id='+idUser;
 
         // fetch from url
         return fetch(url)

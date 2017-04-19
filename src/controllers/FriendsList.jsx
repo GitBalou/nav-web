@@ -16,11 +16,22 @@ class FriendsList extends React.Component {
         // handling loading
         this.state= {
             loading: false
-        }
+        };
+
+        // bind methods
+        this.renderList = this.renderList.bind(this);
     }
 
     // fetch data on mounting
     componentDidMount() {
+
+        // current user id
+        const idUser = this.props.idUser;
+
+        // return if no user
+        if( !idUser || idUser == 0) {
+            return;
+        }
 
         // display loading
         this.setState({loading:true});
@@ -28,7 +39,7 @@ class FriendsList extends React.Component {
         try {
 
             // fetch navigations list (fetch library)
-            friendsApi.fetch(2)
+            friendsApi.fetch(idUser)
 
             // save data
             .then( data => {
@@ -46,13 +57,24 @@ class FriendsList extends React.Component {
         }
     }
 
+    // list rendering
+    renderList(){
+        if(this.props.friends.length == 0) {
+            return <p>Pas de données</p>;
+        }
+
+        return <List datas={this.props.friends} />;
+    }
+
     // render
     render(){
 
         return(
             <div>
                 <Loading show={this.state.loading} />
-                <List datas={this.props.friends} />
+
+                {/* render a list or a message if empty*/}
+                {this.renderList()}
             </div>
         );
     }
@@ -61,7 +83,8 @@ class FriendsList extends React.Component {
 // connect data from store
 const mapStateToProps = (state) => {
     return {
-        friends: state.get('friendsList').friends
+        friends: state.get('friendsList').friends,
+        idUser: state.get('user').id_user,
     };
 };
 

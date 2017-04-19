@@ -16,11 +16,22 @@ class NavList extends React.Component {
         // handling loading
         this.state= {
             loading: false
-        }
+        };
+
+        // bind methods
+        this.renderList = this.renderList.bind(this);
     }
 
-    // fetch data on mounting
+    // fetch data on update
     componentDidMount() {
+
+        // current user id
+        const idUser = this.props.idUser;
+
+        // return if no user
+        if( !idUser || idUser == 0) {
+            return;
+        }
 
         // display loading
         this.setState({loading:true});
@@ -28,7 +39,7 @@ class NavList extends React.Component {
         try {
 
             // fetch navigations list (fetch library)
-            navListApi.fetch(2)
+            navListApi.fetch(idUser)
 
             // handle server response
             .then(data => {
@@ -46,14 +57,24 @@ class NavList extends React.Component {
         }
     }
 
+    // list rendering
+    renderList(){
+        if(this.props.datas.length == 0) {
+            return <p>Pas de données</p>;
+        }
+
+        return <List datas={this.props.datas} />;
+    }
+
     // render
     render(){
 
-        // render list
         return(
             <div>
                 <Loading show={this.state.loading} />
-                <List datas={this.props.datas} />
+
+                {/* render a list or a message if empty*/}
+                {this.renderList()}
             </div>
         );
     }
@@ -61,10 +82,10 @@ class NavList extends React.Component {
 
 // connect data from store
 const mapStateToProps = (state) => {
-    const nav= state.get('navList');
 
     return {
-        datas: nav.navigations
+        datas: state.get('navList').navigations,
+        idUser: state.get('user').id_user,
     };
 };
 

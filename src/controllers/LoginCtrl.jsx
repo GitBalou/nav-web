@@ -1,6 +1,8 @@
 // COMPONENT : render a loggin form
 import React from 'react';
+import {connect} from 'react-redux';
 import userApi from '../api/user.api';
+import userRedux from '../redux/user.duck';
 import Loading from '../views/Loading.jsx';
 import ErrorDisplay from '../views/ErrorDisplay.jsx';
 import InputManager from '../views/InputManager.jsx';
@@ -14,8 +16,7 @@ class LoginCtrl extends React.Component {
         // handle email & pwd value
         this.state = {
             loading:false,
-            showError:false,
-            errorMsg: '',
+            errMsg: '',
             email: '',
             pwd: '',
         };
@@ -50,6 +51,9 @@ class LoginCtrl extends React.Component {
         // handle response
         .then( data => {
 
+            // store user data in redux store
+            this.props.saveData(data);
+
             // toggle loading
             this.setState({loading: false});
         })
@@ -58,10 +62,12 @@ class LoginCtrl extends React.Component {
         .catch( error => {
             console.log(error.message);
 
-            // toggle loading
-            this.setState({loading: false});
+            // toggle loading & error
+            this.setState({
+                loading: false,
+                errMsg: 'Erreur de connection'
+            });
         });
-
 
     }
 
@@ -72,7 +78,7 @@ class LoginCtrl extends React.Component {
         <div>
             <Loading show={this.state.loading} />
 
-            <ErrorDisplay show={this.state.showError} msg={this.state.errorMsg} />
+            <ErrorDisplay msg={this.state.errMsg} />
 
             <FormManager onSubmit={this.handleSubmit}>
 
@@ -106,5 +112,17 @@ class LoginCtrl extends React.Component {
     }
 }
 
-// export
-export default LoginCtrl;
+// connect data from store
+const mapStateToProps = (state) => {
+    return {};
+};
+
+// connect dispatch to store
+const mapDispatchToProps = (dispatch) => {
+    return {
+        saveData: (data) => dispatch(userRedux.receive(data))
+    };
+};
+
+// connection du composant à redux
+export default connect(mapStateToProps, mapDispatchToProps)(LoginCtrl);
