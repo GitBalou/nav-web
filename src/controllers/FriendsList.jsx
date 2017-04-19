@@ -1,7 +1,7 @@
 // CONNECTOR : friends list
 import React from 'react';
 import {connect} from 'react-redux';
-import {friendsList_receive} from '../redux/friendsList.duck';
+import friendsList from '../redux/friendsList.duck';
 import friendsApi from '../api/friends.api';
 import Loading from '../views/Loading.jsx';
 import List from '../views/List.jsx';
@@ -10,17 +10,28 @@ import List from '../views/List.jsx';
 class FriendsList extends React.Component {
 
     // constructor
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
 
         // handling loading
         this.state= {
             loading: false
-        }
+        };
+
+        // bind methods
+        this.renderList = this.renderList.bind(this);
     }
 
     // fetch data on mounting
     componentDidMount() {
+
+        // current user id
+        const idUser = this.props.idUser;
+
+        // return if no user
+        if( !idUser || idUser == 0) {
+            return;
+        }
 
         // display loading
         this.setState({loading:true});
@@ -28,7 +39,7 @@ class FriendsList extends React.Component {
         try {
 
             // fetch navigations list (fetch library)
-            friendsApi.fetch(2)
+            friendsApi.fetch(idUser)
 
             // save data
             .then( data => {
@@ -46,17 +57,25 @@ class FriendsList extends React.Component {
         }
     }
 
+    // list rendering
+    renderList(){
+        if(this.props.friends.length == 0) {
+            return <p>Pas de données</p>;
+        }
+
+        return <List datas={this.props.friends} />;
+    }
+
     // render
     render(){
 
-        // show loading
-        if( this.state.loading) {
-            return <Loading />;
-        }
-
-        // render list
         return(
-          <List datas={this.props.friends} />
+            <div>
+                <Loading show={this.state.loading} />
+
+                {/* render a list or a message if empty*/}
+                {this.renderList()}
+            </div>
         );
     }
 }
@@ -64,14 +83,15 @@ class FriendsList extends React.Component {
 // connect data from store
 const mapStateToProps = (state) => {
     return {
-        friends: state.friendsList.friends
+        friends: state.get('friendsList').friends,
+        idUser: state.get('user').id_user,
     };
 };
 
 // connect dispatch to store
 const mapDispatchToProps = (dispatch) => {
     return {
-        saveData: (data) => dispatch(friendsList_receive(data))
+        saveData: (data) => dispatch(friendsList.receive(data))
     };
 };
 

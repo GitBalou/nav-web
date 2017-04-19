@@ -1,11 +1,15 @@
 // API : friends
+import conf from '../conf';
+
 export default {
 
     // fetching friends
     fetch: idUser => {
 
         // url
-        const url = 'http://seame.alwaysdata.net/ajax/cercle.php?mode=getCercle&user='+idUser;
+        let url = conf.serverUrl+'cercle.php';
+        url += '?mode=getCercle';
+        url += '&user='+idUser;
 
         // fetch from url
         return fetch(url)

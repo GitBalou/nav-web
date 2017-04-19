@@ -1,24 +1,20 @@
-// ACTIONS & REDUCERS : for friends list
+// Friends list duck : actions, state pattern & reducers
 
-// Initial state
-const initialState = {
-    friends: [] // array of friends
-};
-
-// Fetching data for friends list
-export const FRIENDSLIST_FETCH = "FRIENDSLIST_FETCH";
-export function friendsList_fetch(url) {
-    return {type:FRIENDSLIST_FETCH, url};
-}
+// ACTIONS
 
 // Receiving data for friends list
-export const FRIENDSLIST_RECEIVE = "FRIENDSLIST_RECEIVE";
-export function friendsList_receive(friends) {
+const FRIENDSLIST_RECEIVE = "FRIENDSLIST_RECEIVE";
+function receive(friends) {
     return {type:FRIENDSLIST_RECEIVE, friends};
 }
 
-// reducer for friends list
-export default function friendsList(state = initialState, action) {
+// STATE
+const initialState = {
+  friends: []
+};
+
+// REDUCER
+function reducer(state = initialState, action) {
     switch (action.type){
 
         case FRIENDSLIST_RECEIVE:
@@ -31,3 +27,10 @@ export default function friendsList(state = initialState, action) {
             return state;
     }
 }
+
+// EXPORT
+export default {
+    FRIENDSLIST_RECEIVE,
+    receive,
+    reducer,
+};

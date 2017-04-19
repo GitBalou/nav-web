@@ -1,24 +1,20 @@
-// ACTIONS & REDUCERS : NavList
-// Receiving navigation list data
-export const NAVLIST_RECEIVE = 'NAVLIST_RECEIVE';
+// nav list duck : actions, state pattern & reducers
 
-export function navList_receive(navigations) {
+// ACTIONS
+
+// Receiving navigation list data
+const NAVLIST_RECEIVE = 'NAVLIST_RECEIVE';
+function receive(navigations) {
     return {type: NAVLIST_RECEIVE, navigations};
 }
 
-// Fetching navigations list from remote url
-export const NAVLIST_FETCH = "NAVLIST_FETCH";
-export function navList_fetch(url) {
-    return {type:NAVLIST_FETCH, url};
-}
-
-// initial state
-const initialState= {
-    navigations: [] // navigations list
+// STATE
+const initialState = {
+    navigations: []
 };
 
 // reducer for navList
-export default function navList(state= initialState, action){
+function reducer(state = initialState, action){
 	console.log(action);
 	switch (action.type) {
 
@@ -31,4 +27,12 @@ export default function navList(state= initialState, action){
 		default:
 			return state;
 	}
+}
+
+// EXPORT
+export default {
+	NAVLIST_RECEIVE,
+    receive,
+	initialState,
+    reducer,
 }

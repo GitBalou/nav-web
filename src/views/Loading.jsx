@@ -1,14 +1,20 @@
 // COMPONENT : displaying loading spinner
 import React, {PropTypes} from 'react';
 
-let Loading = () => {
+let Loading = ({show}) => {
 
-    return <div>Chargement...</div>;
+    if( show) {
+        return (<div>Chargement...</div>);
+    }
+    else {
+        return null;
+    }
 
 };
 
 // required :
 Loading.propTypes = {
+    show: PropTypes.bool.isRequired
 };
 
 
